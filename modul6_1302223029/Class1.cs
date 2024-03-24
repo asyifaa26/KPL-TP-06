@@ -29,7 +29,21 @@ namespace modul6_1302223029
 
         public void IncreasePlayCount(int count)
         {
+             Contract.Requires(count > 0 && count <= 10000000, "Input penambahan play count maximal 10.000.000 play count");
+             Contract.Ensures(playCount <= int.MaxValue - count, "Penambahan play count melebihi maximal.");
 
+             try
+             {
+                 checked
+                 {
+                     playCount += count;
+                 }
+             }
+            
+             catch (OverflowException)
+             {
+                 Console.WriteLine("Error: Penambahan play count melebihi batas maksimal, yakni melebihi 10.000.000.");
+             }
         }
 
         
